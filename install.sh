@@ -30,7 +30,7 @@ if [[ -z "${DEDICATED_HEARTBEAT_SECRET:-}" ]]; then
 fi
 
 if [[ -n "${GHCR_PULL_TOKEN:-}" ]]; then
-  echo "$GHCR_PULL_TOKEN" | docker login ghcr.io -u owodesk-client --password-stdin
+  echo "$GHCR_PULL_TOKEN" | docker login ghcr.io -u "${GHCR_PULL_USERNAME:-owoclient}" --password-stdin
 fi
 
 echo "[owodesk] Pull des images (${GHCR_BUSINESS_IMAGE:-?})..."

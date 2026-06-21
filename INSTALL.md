@@ -34,7 +34,8 @@ nano .env
 |----------|--------|
 | `INSTANCE_ID` | E-mail kit |
 | `DEDICATED_HEARTBEAT_SECRET` | E-mail kit |
-| `GHCR_PULL_TOKEN` | E-mail kit |
+| `GHCR_PULL_USERNAME` | E-mail kit (`owoclient`) |
+| `GHCR_PULL_TOKEN` | E-mail kit (PAT GitHub) |
 | `DB_PASSWORD`, `SECRET_KEY` | À générer (valeurs uniques) |
 | `FRONTEND_URL`, `PUBLIC_API_URL` | URL du serveur client (`http://IP:8080` ou domaine) |
 | `OWODESK_IMAGE_TAG` | Version livrée (ex. `1.0.0`) |

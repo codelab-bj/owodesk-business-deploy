@@ -37,23 +37,35 @@ Dépôt `codelab-bj/erp_crm_frontend` → **Publish GHCR Frontend** → tag `1.0
   - `ghcr.io/codelab-bj/owodesk-business:1.0.0`
   - `ghcr.io/codelab-bj/owodesk-frontend:1.0.0`
 
-## 3. Accès client (pull)
+## 3. Compte service GHCR (`owoclient`)
+
+Compte GitHub dédié (une fois) : https://github.com/owoclient
+
+1. Connecté en **owoclient** → générer un PAT classic scope **`read:packages`**
+2. Sur **api.erp.codelab.bj** (`.env` prod backend) :
+   ```env
+   GHCR_CLIENT_USERNAME=owoclient
+   GHCR_CLIENT_PULL_TOKEN=ghp_...
+   ```
+3. L’e-mail kit d’installation inclura automatiquement ce login + token.
+
+## 4. Accès client (pull packages)
 
 Pour chaque package → **Package settings** :
 
 1. **Visibility** : Private
 2. **Manage Actions access** : repos `erp_crm_backend` / `erp_crm_frontend` en Write (CI)
-3. **Manage access** : ajouter le compte/token `owodesk-client` en **Read**
+3. **Manage access** : ajouter le compte **`owoclient`** en **Read**
 
 Test :
 
 ```bash
-docker login ghcr.io -u owodesk-client -p <TOKEN>
+docker login ghcr.io -u owoclient -p <TOKEN>
 docker pull ghcr.io/codelab-bj/owodesk-business:1.0.0
 docker pull ghcr.io/codelab-bj/owodesk-frontend:1.0.0
 ```
 
-## 4. Build manuel (secours)
+## 5. Build manuel (secours)
 
 ```bash
 # Backend
@@ -67,7 +79,7 @@ docker build --build-arg VITE_API_BASE_URL= -t ghcr.io/codelab-bj/owodesk-fronte
 docker push ghcr.io/codelab-bj/owodesk-frontend:1.0.0
 ```
 
-## 5. Mettre à jour le tag client
+## 6. Mettre à jour le tag client
 
 Dans ce dépôt, éditer `env.business.example` (`OWODESK_IMAGE_TAG`, lignes `GHCR_*_IMAGE`).
 

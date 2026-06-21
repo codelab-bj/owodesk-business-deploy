@@ -21,7 +21,7 @@ export GHCR_BUSINESS_IMAGE="${GHCR_BUSINESS_IMAGE:-ghcr.io/${ORG}/owodesk-busine
 export GHCR_FRONTEND_IMAGE="${GHCR_FRONTEND_IMAGE:-ghcr.io/${ORG}/owodesk-frontend:${TAG}}"
 
 if [[ -n "${GHCR_PULL_TOKEN:-}" ]]; then
-  echo "$GHCR_PULL_TOKEN" | docker login ghcr.io -u owodesk-client --password-stdin
+  echo "$GHCR_PULL_TOKEN" | docker login ghcr.io -u "${GHCR_PULL_USERNAME:-owoclient}" --password-stdin
 fi
 
 echo "[owodesk-update] Mise à jour vers ${TAG}..."
