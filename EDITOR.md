@@ -3,14 +3,15 @@
 Les **images Docker** se buildent depuis les dépôts applicatifs.  
 Ce dépôt (`owodesk-business-deploy`) ne contient que le kit client.
 
-> Tous les dépôts et packages GHCR sont sous l’organisation **`codelab-bj`**.
+> **Modèle de déploiement client** : ce dépôt est **public** (scripts/compose, sans secrets).  
+> Les images Docker restent **privées** sur GHCR. Tous les dépôts sous l’organisation **`codelab-bj`**.
 
 ## Architecture
 
 ```
-codelab-bj/erp_crm_backend          → ghcr.io/codelab-bj/owodesk-business
-codelab-bj/erp_crm_frontend         → ghcr.io/codelab-bj/owodesk-frontend
-codelab-bj/owodesk-business-deploy  → compose + install.sh (tags pinés)
+codelab-bj/erp_crm_backend           → ghcr.io/codelab-bj/owodesk-business (privé)
+codelab-bj/erp_crm_frontend          → ghcr.io/codelab-bj/owodesk-frontend (privé)
+codelab-bj/owodesk-business-deploy   → PUBLIC — compose + install.sh
 ```
 
 ## 1. Publication (GitHub Actions)

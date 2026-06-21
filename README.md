@@ -1,9 +1,10 @@
 # OwoDesk Business — kit déploiement serveur dédié
 
-Dépôt **client / ops** : scripts d’installation Docker pour une instance OwoDesk Business **single-tenant** chez le client.
+Dépôt **public** : scripts d’installation Docker pour une instance OwoDesk Business **single-tenant** chez le client.
 
-> Les images applicatives sont publiées par Code Lab sur GHCR (`owodesk-business`, `owodesk-frontend`).  
-> Ce dépôt ne contient **pas** le code source Django/React.
+> **Pas de compte GitHub requis** pour cloner ce dépôt.  
+> Les images applicatives restent **privées** sur GHCR (`owodesk-business`, `owodesk-frontend`).  
+> Ce dépôt ne contient **pas** le code source Django/React ni de secrets (`.env`, `.license` = e-mail kit).
 
 ## Contenu
 
@@ -19,10 +20,12 @@ Dépôt **client / ops** : scripts d’installation Docker pour une instance Owo
 ## Démarrage rapide (client)
 
 ```bash
+sudo mkdir -p /opt/owodesk
+sudo chown "$USER:$USER" /opt/owodesk
 git clone https://github.com/codelab-bj/owodesk-business-deploy.git /opt/owodesk
 cd /opt/owodesk
 cp env.business.example .env
-nano .env          # INSTANCE_ID, secrets, mots de passe
+nano .env          # INSTANCE_ID, secrets, mots de passe (e-mail kit)
 nano .license      # JSON reçu par e-mail après paiement Business
 chmod +x install.sh owodesk-update.sh
 ./install.sh
@@ -32,10 +35,11 @@ Accès : `http://VOTRE_SERVEUR:8080` (frontend, nginx proxifie `/api` vers le ba
 
 ## Versions
 
-Aligner `OWODESK_IMAGE_TAG` dans `.env` avec la version livrée par Code Lab (ex. `1.0.0`).
+Aligner `OWODESK_IMAGE_TAG` dans `.env` avec la version livrée par Code Lab (ex. `latest` ou `1.0.1`).
 
 ```bash
-./owodesk-update.sh 1.0.0
+git pull
+./owodesk-update.sh 1.0.1
 ```
 
 ## Support

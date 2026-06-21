@@ -6,8 +6,9 @@
 - Docker Engine 24+ et Docker Compose v2
 - Kit reçu par e-mail après paiement : `.license`, `INSTANCE_ID`, secret heartbeat, token GHCR
 - Accès sortant HTTPS vers `ghcr.io` et `api.erp.codelab.bj`
+- **Aucun compte GitHub** requis (ce dépôt est public)
 
-## 1. Récupérer ce dépôt
+## 1. Récupérer le kit (clone public)
 
 ```bash
 sudo mkdir -p /opt/owodesk
@@ -16,8 +17,6 @@ git clone https://github.com/codelab-bj/owodesk-business-deploy.git /opt/owodesk
 cd /opt/owodesk
 chmod +x install.sh owodesk-update.sh
 ```
-
-*(Ou copier le zip du kit fourni par Code Lab.)*
 
 ## 2. Fichier `.license`
 
@@ -38,8 +37,8 @@ nano .env
 | `GHCR_PULL_TOKEN` | E-mail kit (PAT GitHub) |
 | `DB_PASSWORD`, `SECRET_KEY` | À générer (valeurs uniques) |
 | `FRONTEND_URL`, `PUBLIC_API_URL` | URL du serveur client (`http://IP:8080` ou domaine) |
-| `OWODESK_IMAGE_TAG` | Version livrée (ex. `1.0.0`) |
-| `GHCR_BUSINESS_IMAGE` / `GHCR_FRONTEND_IMAGE` | Doivent inclure le même tag |
+| `OWODESK_IMAGE_TAG` | Version livrée (ex. `latest`) |
+| `GHCR_BUSINESS_IMAGE` / `GHCR_FRONTEND_IMAGE` | Même tag que `OWODESK_IMAGE_TAG` |
 
 Générer `SECRET_KEY` :
 
@@ -62,12 +61,13 @@ curl -s http://localhost:8000/api/licensing/local/license-status/
 
 Ouvrir le navigateur : `http://VOTRE_IP:8080`
 
-Dans le super-admin Code Lab, l’instance passe à **active** après le premier heartbeat (~30 min max, ou redémarrer `celery-beat`).
+Dans le super-admin Code Lab, l’instance passe à **active** après le premier heartbeat (~30 min max).
 
 ## 6. Mettre à jour
 
 ```bash
-./owodesk-update.sh 1.0.1
+git pull
+./owodesk-update.sh latest
 ```
 
 ## Dépannage
@@ -77,5 +77,6 @@ Dans le super-admin Code Lab, l’instance passe à **active** après le premier
 | `unauthorized` au pull | Token GHCR expiré → demander renvoi kit |
 | `403 LICENSE_INVALID` | Vérifier `.license` complet |
 | Frontend sans API | `PUBLIC_API_URL` = URL frontend (`:8080`), pas `:8000` |
+| `not found` sur image | Vérifier le tag dans `.env` (`latest` si `1.0.0` absent) |
 
 Support : contact@codelab.bj
