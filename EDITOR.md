@@ -3,15 +3,15 @@
 Les **images Docker** se buildent depuis les dépôts applicatifs.  
 Ce dépôt (`owodesk-business-deploy`) ne contient que le kit client.
 
-> **Identités GitHub** : `codelabbj` = compte utilisateur (backend/frontend + packages GHCR).  
-> `codelab-bj` = organisation (kit deploy). Les images sont sous `ghcr.io/codelabbj/…`.
+> **Identités GitHub** : `codelabbj` = compte utilisateur (backend → `ghcr.io/codelabbj/owodesk-business`).  
+> `codelab-bj` = organisation (frontend → `ghcr.io/codelab-bj/owodesk-frontend`, kit deploy).
 
 ## Architecture
 
 ```
-erp_crm_backend/     → Dockerfile + CI → ghcr.io/codelabbj/owodesk-business
-erp_crm_frontend/    → Dockerfile + CI → ghcr.io/codelabbj/owodesk-frontend
-owodesk-business-deploy/  → compose + install.sh (tags d’images pinés)
+codelabbj/erp_crm_backend   → Dockerfile + CI → ghcr.io/codelabbj/owodesk-business
+codelab-bj/erp_crm_frontend → Dockerfile + CI → ghcr.io/codelab-bj/owodesk-frontend
+codelab-bj/owodesk-business-deploy → compose + install.sh (tags d’images pinés)
 ```
 
 ## 1. Première publication (GitHub Actions)
@@ -48,8 +48,8 @@ docker push ghcr.io/codelabbj/owodesk-business:1.0.0
 
 # Frontend
 cd erp_crm_frontend
-docker build --build-arg VITE_API_BASE_URL= -t ghcr.io/codelabbj/owodesk-frontend:1.0.0 .
-docker push ghcr.io/codelabbj/owodesk-frontend:1.0.0
+docker build --build-arg VITE_API_BASE_URL= -t ghcr.io/codelab-bj/owodesk-frontend:1.0.0 .
+docker push ghcr.io/codelab-bj/owodesk-frontend:1.0.0
 ```
 
 Login : `echo $GHCR_TOKEN | docker login ghcr.io -u VOTRE_COMPTE --password-stdin`

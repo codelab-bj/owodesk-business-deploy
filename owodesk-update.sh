@@ -15,10 +15,11 @@ if [[ -f .env ]]; then
 fi
 
 TAG="${TAG:-${OWODESK_IMAGE_TAG:-latest}}"
-ORG="${GHCR_ORG:-codelabbj}"
+BUSINESS_ORG="${GHCR_BUSINESS_ORG:-${GHCR_ORG:-codelabbj}}"
+FRONTEND_ORG="${GHCR_FRONTEND_ORG:-${GHCR_ORG:-codelab-bj}}"
 
-export GHCR_BUSINESS_IMAGE="ghcr.io/${ORG}/owodesk-business:${TAG}"
-export GHCR_FRONTEND_IMAGE="ghcr.io/${ORG}/owodesk-frontend:${TAG}"
+export GHCR_BUSINESS_IMAGE="${GHCR_BUSINESS_IMAGE:-ghcr.io/${BUSINESS_ORG}/owodesk-business:${TAG}}"
+export GHCR_FRONTEND_IMAGE="${GHCR_FRONTEND_IMAGE:-ghcr.io/${FRONTEND_ORG}/owodesk-frontend:${TAG}}"
 
 if [[ -n "${GHCR_PULL_TOKEN:-}" ]]; then
   echo "$GHCR_PULL_TOKEN" | docker login ghcr.io -u owodesk-client --password-stdin
