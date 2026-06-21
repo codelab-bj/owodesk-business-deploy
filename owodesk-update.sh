@@ -15,7 +15,7 @@ if [[ -f .env ]]; then
 fi
 
 TAG="${TAG:-${OWODESK_IMAGE_TAG:-latest}}"
-ORG="${GHCR_ORG:-codelabbj}"
+ORG="${GHCR_ORG:-codelab-bj}"
 
 export GHCR_BUSINESS_IMAGE="ghcr.io/${ORG}/owodesk-business:${TAG}"
 export GHCR_FRONTEND_IMAGE="ghcr.io/${ORG}/owodesk-frontend:${TAG}"

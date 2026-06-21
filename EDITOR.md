@@ -6,8 +6,8 @@ Ce dépôt (`owodesk-business-deploy`) ne contient que le kit client.
 ## Architecture
 
 ```
-erp_crm_backend/     → Dockerfile + CI → ghcr.io/codelabbj/owodesk-business
-erp_crm_frontend/    → Dockerfile + CI → ghcr.io/codelabbj/owodesk-frontend
+erp_crm_backend/     → Dockerfile + CI → ghcr.io/codelab-bj/owodesk-business
+erp_crm_frontend/    → Dockerfile + CI → ghcr.io/codelab-bj/owodesk-frontend
 owodesk-business-deploy/  → compose + install.sh (tags d’images pinés)
 ```
 
@@ -40,13 +40,13 @@ git push origin business-v1.0.0
 ```bash
 # Backend
 cd erp_crm_backend
-docker build -t ghcr.io/codelabbj/owodesk-business:1.0.0 .
-docker push ghcr.io/codelabbj/owodesk-business:1.0.0
+docker build -t ghcr.io/codelab-bj/owodesk-business:1.0.0 .
+docker push ghcr.io/codelab-bj/owodesk-business:1.0.0
 
 # Frontend
 cd erp_crm_frontend
-docker build --build-arg VITE_API_BASE_URL= -t ghcr.io/codelabbj/owodesk-frontend:1.0.0 .
-docker push ghcr.io/codelabbj/owodesk-frontend:1.0.0
+docker build --build-arg VITE_API_BASE_URL= -t ghcr.io/codelab-bj/owodesk-frontend:1.0.0 .
+docker push ghcr.io/codelab-bj/owodesk-frontend:1.0.0
 ```
 
 Login : `echo $GHCR_TOKEN | docker login ghcr.io -u VOTRE_COMPTE --password-stdin`
@@ -55,7 +55,7 @@ Login : `echo $GHCR_TOKEN | docker login ghcr.io -u VOTRE_COMPTE --password-stdi
 
 1. Packages `owodesk-business` et `owodesk-frontend` → **Private**
 2. Accès lecture pour le compte **`owodesk-client`** (tokens clients générés par l’ERP)
-3. Vérifier : `docker pull ghcr.io/codelabbj/owodesk-business:1.0.0`
+3. Vérifier : `docker pull ghcr.io/codelab-bj/owodesk-business:1.0.0`
 
 ## 4. Livrer au client
 
