@@ -12,7 +12,7 @@
 ```bash
 sudo mkdir -p /opt/owodesk
 sudo chown "$USER:$USER" /opt/owodesk
-git clone https://github.com/codelabbj/owodesk-business-deploy.git /opt/owodesk
+git clone https://github.com/codelab-bj/owodesk-business-deploy.git /opt/owodesk
 cd /opt/owodesk
 chmod +x install.sh owodesk-update.sh
 ```

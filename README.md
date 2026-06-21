@@ -19,7 +19,7 @@ Dépôt **client / ops** : scripts d’installation Docker pour une instance Owo
 ## Démarrage rapide (client)
 
 ```bash
-git clone https://github.com/codelabbj/owodesk-business-deploy.git /opt/owodesk
+git clone https://github.com/codelab-bj/owodesk-business-deploy.git /opt/owodesk
 cd /opt/owodesk
 cp env.business.example .env
 nano .env          # INSTANCE_ID, secrets, mots de passe
