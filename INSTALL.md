@@ -6,14 +6,14 @@
 - Docker Engine 24+ et Docker Compose v2
 - Kit reçu par e-mail après paiement : `.license`, `INSTANCE_ID`, secret heartbeat, token GHCR
 - Accès sortant HTTPS vers `ghcr.io` et `api.erp.codelab.bj`
-- **Aucun compte GitHub** requis (ce dépôt est public)
+- **Aucun compte GitHub** requis en HTTPS ; en **SSH**, une clé SSH doit être configurée sur le serveur (`ssh -T git@github.com`)
 
 ## 1. Récupérer le kit (clone public)
 
 ```bash
 sudo mkdir -p /opt/owodesk
 sudo chown "$USER:$USER" /opt/owodesk
-git clone https://github.com/codelab-bj/owodesk-business-deploy.git /opt/owodesk
+git clone git@github.com:codelab-bj/owodesk-business-deploy.git /opt/owodesk
 cd /opt/owodesk
 chmod +x install.sh owodesk-update.sh
 ```

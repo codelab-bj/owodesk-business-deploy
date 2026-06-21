@@ -2,9 +2,7 @@
 
 Dépôt **public** : scripts d’installation Docker pour une instance OwoDesk Business **single-tenant** chez le client.
 
-> **Pas de compte GitHub requis** pour cloner ce dépôt.  
-> Les images applicatives restent **privées** sur GHCR (`owodesk-business`, `owodesk-frontend`).  
-> Ce dépôt ne contient **pas** le code source Django/React ni de secrets (`.env`, `.license` = e-mail kit).
+> Repo **public** (scripts/compose). Clone **SSH** : clé GitHub sur le serveur requise.
 
 ## Contenu
 
@@ -22,7 +20,7 @@ Dépôt **public** : scripts d’installation Docker pour une instance OwoDesk B
 ```bash
 sudo mkdir -p /opt/owodesk
 sudo chown "$USER:$USER" /opt/owodesk
-git clone https://github.com/codelab-bj/owodesk-business-deploy.git /opt/owodesk
+git clone git@github.com:codelab-bj/owodesk-business-deploy.git /opt/owodesk
 cd /opt/owodesk
 cp env.business.example .env
 nano .env          # INSTANCE_ID, secrets, mots de passe (e-mail kit)
