@@ -1,0 +1,88 @@
+# OwoDesk Business — déploiement serveur dédié (single-tenant)
+# cp env.business.example .env && ./install.sh
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-owodesk}
+      POSTGRES_USER: ${DB_USER:-owodesk}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD requis}
+    volumes:
+      - owodesk_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-owodesk}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    image: ${GHCR_BUSINESS_IMAGE:?GHCR_BUSINESS_IMAGE requis}
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DEPLOYMENT_MODE: dedicated
+      DB_HOST: db
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ./.license:/app/.license:ro
+      - media_data:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+
+  celery:
+    image: ${GHCR_BUSINESS_IMAGE:?GHCR_BUSINESS_IMAGE requis}
+    restart: unless-stopped
+    env_file: .env
+    command: celery -A config worker -l info
+    environment:
+      DEPLOYMENT_MODE: dedicated
+      DB_HOST: db
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ./.license:/app/.license:ro
+    depends_on:
+      - backend
+      - redis
+
+  celery-beat:
+    image: ${GHCR_BUSINESS_IMAGE:?GHCR_BUSINESS_IMAGE requis}
+    restart: unless-stopped
+    env_file: .env
+    command: celery -A config beat -l info
+    environment:
+      DEPLOYMENT_MODE: dedicated
+      DB_HOST: db
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ./.license:/app/.license:ro
+    depends_on:
+      - backend
+      - redis
+
+  frontend:
+    image: ${GHCR_FRONTEND_IMAGE:?GHCR_FRONTEND_IMAGE requis}
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
+
+volumes:
+  owodesk_pg:
+  media_data:

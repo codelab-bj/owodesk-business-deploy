@@ -1,0 +1,4 @@
+.env
+.license
+*.log
+.DS_Store
